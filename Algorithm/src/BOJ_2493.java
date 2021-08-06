@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+
+// 0806 과제 
 public class BOJ_2493 {
 	public static void main(String[] args) throws IOException {
 		int N;

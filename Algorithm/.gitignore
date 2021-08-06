@@ -4,3 +4,7 @@
 .project
 
 .classpath
+
+# working file
+Solution.java
+test.java
