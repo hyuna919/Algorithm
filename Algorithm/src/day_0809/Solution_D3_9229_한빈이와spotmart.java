@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+
+// 난 조합으로 풀었는데
+// 1000의 제곱이라 이중반복이 차라리 났다...
 public class Solution_D3_9229_한빈이와spotmart {
 	static int T, N, M, max, sum;
 	static int [] numbers, inputs;
