@@ -10,7 +10,7 @@ public class Main_BOJ_2563_updates {
 	
 	static String [] tmp;
 	
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(in.readLine());
