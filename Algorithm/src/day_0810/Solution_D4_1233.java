@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 public class Solution_D4_1233 {
     static int T=10, N, ans;
     static String [] currNode;
-    static String tmp;
+    static String tmp, operators;
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        operators = "+-*/";
          
         for (int t = 1; t < T+1; t++) {
             ans = 1;    // 기본 값을 정답으로
@@ -23,7 +24,7 @@ public class Solution_D4_1233 {
                     currNode = in.readLine().split(" ");
                     if(currNode.length == 2) { // 리프인데 연산자면 무효
                         tmp = currNode[1];
-                        if((tmp.equals("+")) || (tmp.equals("-")) || (tmp.equals("*")) || (tmp.equals("/")))  {
+                        if(operators.contains(tmp)){
                             ans = 0;
                             while(--N>0) {
                                 in.readLine();
@@ -33,7 +34,9 @@ public class Solution_D4_1233 {
                     }else { // currNode.length가 4라면, ... 3인 경우는 위의 짝수 거르는 곳에서 걸러짐
                             // 리프가 아닌데 연산자가 아니면(숫자면) 무효
                         tmp = currNode[1];
-                        if(!(tmp.equals("+")) && !(tmp.equals("-")) && !(tmp.equals("*")) && !(tmp.equals("/")))  {
+                        if(operators.contains(tmp)){
+                            continue;
+                        }else {
                             ans = 0;
                             while(N-->0) {
                                 in.readLine();
