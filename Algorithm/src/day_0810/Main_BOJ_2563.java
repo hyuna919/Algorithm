@@ -20,9 +20,10 @@ public class Main_BOJ_2563 {
 		cnt = 0;
 		base = new boolean[100][100];
 		while(N-->0) {
-//			token = new StringTokenizer(in.readLine());
-//			r = Integer.parseInt(token.nextToken());
-//			c = Integer.parseInt(token.nextToken());
+			token = new StringTokenizer(in.readLine());
+			r = Integer.parseInt(token.nextToken());
+			c = Integer.parseInt(token.nextToken());
+			
 			tmp = in.readLine().split(" ");
 			r = Integer.parseInt(tmp[0]);
 			c = Integer.parseInt(tmp[1]);
