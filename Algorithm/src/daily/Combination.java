@@ -1,19 +1,24 @@
 package daily;
 
+import java.util.Arrays;
+
 public class Combination {
 
-	static int n ,r, numbers[], inputs[];
+	static int n ,r, numbers[], inputs[], cnt;
 	public static void main(String[] args) {
-			n = 5;
-			r = 3;
-			inputs = new int[] {1,2,3,4,5};
-			numbers = new int[r];
-
-			comb(n,r);
+		n=3;
+		r=2;
+		inputs = new int[] {1,3,5};
+		numbers = new int[r];
+		
+		comb(n,r);
+		System.out.println(cnt);
 	}
 	
 	private static void comb(int n, int r) {
 		if(r==0) {
+			cnt++;
+			System.out.println(Arrays.toString(numbers));
 			return;
 		}
 		
@@ -22,6 +27,7 @@ public class Combination {
 		numbers[r-1] = inputs[n-1];
 		comb(n-1,r-1);
 		comb(n-1,r);
+		
 	}
 
 }
