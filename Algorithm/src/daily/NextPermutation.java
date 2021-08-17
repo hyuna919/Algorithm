@@ -16,23 +16,18 @@ public class NextPermutation {
 	 
 	 // 다음 큰 순열이 있으면 true 없으면 false
 	 private static boolean np(int[] nums) {
-		 // 꼭대기
+		 // 꼭대기찾기
 		 int i = N;
-		 while(i>0 && nums[i-1]>=nums[i]) --i;
+		 while(i>0 && nums[i-1]>nums[i]) i--;
 		 
 		 if(i==0) return false;
-		 
-		 // 뒤에서 교환한 대상
+		 // 뒤에서 바꿀거 찾기
 		 int j = N;
-		 while(nums[i-1] >=  nums[j]) --j;
-		 
+		 while(nums[i-1] >= nums[j]) j--;
 		 swap(nums,i-1,j);
-		 
-		 // 뒤 정렬
+		 // 뒤에 정렬
 		 int k = N;
-		 while(i<k) {
-			 swap(nums, i++, k--);
-		 }
+		 while(i<k) swap(nums,i++,k--);
 		 
 		 return true;
 	}
