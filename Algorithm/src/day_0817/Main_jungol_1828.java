@@ -44,6 +44,7 @@ public class Main_jungol_1828 {
 		}
 		Collections.sort(arr);
 		
+		////////////////////////////////////
 		cnt = 1;
 		int max = arr.get(0).max;
 		int min = arr.get(0).min;
@@ -56,7 +57,7 @@ public class Main_jungol_1828 {
 				min = now.min;
 			}
 		}
-		
+		/////////////////////////////////////////
 		System.out.println(cnt);
 		
 		
