@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.table.TableColumn;
 
-public class Main {
+public class Main_jungol_1335 {
 	static int N, white, blue;
 	static int[][] map;
 	public static void main(String[] args) throws NumberFormatException, IOException {
