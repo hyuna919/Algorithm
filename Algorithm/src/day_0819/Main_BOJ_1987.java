@@ -35,7 +35,7 @@ public class Main_BOJ_1987 {
 		System.out.println(max);
 	}
 	private static void move(int r, int c, int cnt, int flag) {
-		// 백트래킹
+		// 백트래킹...여기까지 거친 알파벳이 같다면
 		if(visited[r][c] == flag) return;
 		visited[r][c] = flag;
 		
