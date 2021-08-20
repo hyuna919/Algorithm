@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 
 public class Main_BOJ_B1_2999_비밀이메일 {
 	static char[] arr;
-	static char[][] map;
 	static int N, R=1, C;
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
