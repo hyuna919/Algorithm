@@ -14,6 +14,7 @@ public class Combination {
 		comb(n,r);
 		System.out.println(cnt);
 	}
+	
 	private static void comb(int n, int r) {
 		if(r==0) {
 			cnt++;
