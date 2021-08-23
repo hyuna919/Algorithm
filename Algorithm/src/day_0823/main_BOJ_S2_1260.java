@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 
-
+// 인접행렬ver
 public class main_BOJ_S2_1260{
 	static int N, M, V, flag;
 	static boolean[][] arr;
