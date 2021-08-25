@@ -39,14 +39,10 @@ public class Main_BOJ_S5_2477 {
 			}
 		}
 		
-		
-		
 		sum = bigX * bigY;
 		sum -= smallX * smallY;
 		sum *= N;
 		
 		System.out.println(sum);
-		
 	}
-
 }
