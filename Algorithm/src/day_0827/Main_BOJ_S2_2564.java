@@ -39,7 +39,7 @@ public class Main_BOJ_S2_2564 {
 				sum += Y + distance;
 			}else if(d*store==12) { // 맞은편 - 동서
 				tmp = pos[n]+xy;
-				distance = tmp>Y?Y-tmp:tmp;
+				distance = tmp>Y?2*Y-tmp:tmp;
 				sum += X + distance;
 			}else {
 				tmp = d*store;
