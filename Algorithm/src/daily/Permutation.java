@@ -14,7 +14,7 @@ public class Permutation {
 		
 	}
 	
-	public static void perm(int now, int flag) {
+	public static void perm(int now, int flag){
 		if(now==r) {
 			cnt++;
 			System.out.println(Arrays.toString(nums));
@@ -23,9 +23,11 @@ public class Permutation {
 		
 		for (int i = 0; i < n; i++) {
 			if((flag&1<<i)==0) {
-				nums[now] = inputs[i];
+				nums[now] = i;
 				perm(now+1, flag|1<<i);
 			}
 		}
 	}
+	
+
 }
