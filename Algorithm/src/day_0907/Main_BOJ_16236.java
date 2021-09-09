@@ -73,9 +73,22 @@ public class Main_BOJ_16236 {
 			System.out.println(0);
 		}
 		
-		move_bfs();
+		while(!smallfishes.isEmpty()) {
+			System.out.println(shark.size);
+			
+			move_bfs();
+			
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(map[i][j] + " ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
 		
-		System.out.println();
+		
+		System.out.println(cnt);
 	}
 	
 	
@@ -87,9 +100,8 @@ public class Main_BOJ_16236 {
 		// 탐색
 		int nx, ny;
 		ArrayList<Fish> eatFish = new ArrayList<>();
-		while(!smallfishes.isEmpty()) {
+		while(!q.isEmpty()) {
 			Shark now = q.poll();
-			cnt++;
 			for (int i = 0; i < 4; i++) {
 				nx = now.x + dx[i];
 				ny = now.y + dy[i];
@@ -103,8 +115,8 @@ public class Main_BOJ_16236 {
 				// 방문+먹을수있는지
 				q.offer(new Shark(nx, ny, now.dist+1));
 				visited[nx][ny] = true;
-				if(map[nx][ny]!=0) {
-					eatFish.add(new Fish(nx,ny,0));
+				if(map[nx][ny]!=0 && map[nx][ny] < shark.size) {
+					eatFish.add(new Fish(nx,ny,map[nx][ny]));
 				}
 			}
 			
@@ -125,8 +137,10 @@ public class Main_BOJ_16236 {
 					}
 				}
 				eat(eatFish.get(min));
+				eatFish.clear();
+				cnt += now.dist+1;				
+				return;
 			}
-			
 		}
 		
 	}
@@ -134,11 +148,11 @@ public class Main_BOJ_16236 {
 	static void eat(Fish fish) {
 		shark.x = fish.x;
 		shark.y = fish.y;
-		
 		shark.eat++;
 		visited = new boolean[N][N];
+		map[fish.x][fish.y] = 0;
 		
-		for (int i = 0, end = smallfishes.size(); i < end; i++) {
+		for (int i = smallfishes.size()-1; i > -1; i--) {
 			if(smallfishes.get(i).x==fish.x && smallfishes.get(i).y==fish.y) {
 				smallfishes.remove(i);
 			}
