@@ -17,15 +17,17 @@ public class Combination {
 	
 	private static void comb(int n, int r) {
 		if(r==0) {
-			cnt++;
 			System.out.println(Arrays.toString(nums));
+			cnt++;
 			return;
 		}
 		
-		if(n<r) return;
+		if(n<r)return;
 
 		nums[r-1] = inputs[n-1];
-		comb(n-1,r-1);
 		comb(n-1,r);
+		comb(n-1,r-1);
+		
 	}
+	
 }
