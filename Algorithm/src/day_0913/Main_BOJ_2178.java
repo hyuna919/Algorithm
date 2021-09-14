@@ -35,9 +35,6 @@ public class Main_BOJ_2178 {
 		
 		System.out.println(visited[N-1][M-1]);
 		
-		
-		
-		
 	}
 	private static void bfs() {
 		Queue<int[]> q = new LinkedList<int[]>();
