@@ -18,19 +18,6 @@ public class NextPermutation {
 
 
 	private static boolean np() {
-//		int i =N;
-//		while(i>0 && input[i-1] >= input[i]) i--;
-//		if(i==0) return false;
-//		
-//		int j =N;
-//		while(input[i-1] >= input[j]) j--;
-//		swap(i-1,j);
-//		
-//		int k =N;
-//		while(i<k) {
-//			 swap(i++,k--);
-//		}
-//		return true;
 		int i = N;
 		while(i>0 && input[i-1] >=input[i]) i--;
 		if(i==0) return false;
