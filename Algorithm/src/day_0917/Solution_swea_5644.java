@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+/*
+ * 
+ * 무선충전
+ * 
+ */
 public class Solution_swea_5644 {
 	static class BC implements Comparable<BC>{
 		int x,y,cover,perf;

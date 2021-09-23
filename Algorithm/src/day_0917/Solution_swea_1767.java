@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+
+/*
+ * 
+ * 프로세서 연결
+ * 
+ */
 public class Solution_swea_1767 {
 	static class Point{
 		int x,y;
