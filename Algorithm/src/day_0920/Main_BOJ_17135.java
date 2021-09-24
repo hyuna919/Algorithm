@@ -22,8 +22,8 @@ public class Main_BOJ_17135 {
 	static int N, M, D, max=0, kill, enemyOri, enemy;
 	static int[] archer = new int[3];
 	static int[][] mapOri, map;
-//	static ArrayList<Integer> killX, killY;
 	static ArrayList<int[]> killXY;
+	static Position now;
 	
 	// 좌상우
 	static int[] dx = {0,-1,0};
@@ -48,8 +48,11 @@ public class Main_BOJ_17135 {
 		}
 		
 		// 조합
+		long stime = System.currentTimeMillis();
 		comb(M,3);
+		long etime = System.currentTimeMillis();
 		
+		System.out.println(etime-stime);
 		System.out.println(max);
 	}
 	
@@ -78,8 +81,6 @@ public class Main_BOJ_17135 {
 	}
 	private static void defense() {
 		for (int i = N; i > 0; i--) {
-//			killX = new ArrayList<Integer>();
-//			killY = new ArrayList<Integer>();
 			killXY = new ArrayList<int[]>();
 			
 			for (int j = 0; j < 3; j++) {
@@ -91,10 +92,6 @@ public class Main_BOJ_17135 {
 	}
 	
 	private static void remove(int x) {
-//		for (int i = killX.size()-1; i > -1; i--) {
-//			map[killX.get(i)][killY.get(i)] = 0;
-//			enemy--;
-//		}		
 		for (int i = killXY.size()-1; i > -1; i--) {
 			map[killXY.get(i)[0]][killXY.get(i)[1]] = 0;
 			enemy--;
@@ -111,7 +108,6 @@ public class Main_BOJ_17135 {
 		Queue<Position> q = new LinkedList<Position>();
 		q.offer(new Position(x,y,d));
 		
-		Position now;
 		int nx, ny;
 		while(!q.isEmpty()) {    
 			now = q.poll();
@@ -127,8 +123,6 @@ public class Main_BOJ_17135 {
 				if(nx==now.x && now.d==D) continue;
 				// 적이 있으면 죽이고 다음 궁병으로
 				if(map[nx][ny]==1) {
-//					killX.add(nx);
-//					killY.add(ny);
 					killXY.add(new int[] {nx,ny});
 					map[nx][ny] = 2;
 					kill++;

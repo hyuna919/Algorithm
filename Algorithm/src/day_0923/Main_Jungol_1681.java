@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ *  정올 해밀턴 경로
+ *
+ */
 public class Main_Jungol_1681 {	
 	static int N, res=Integer.MAX_VALUE;
 	static int[][] adjMatrix;
