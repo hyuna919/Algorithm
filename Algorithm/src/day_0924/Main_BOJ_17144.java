@@ -33,6 +33,7 @@ public class Main_BOJ_17144 {
 				else if(tmp==-1 && cleaner==-1) cleaner = i;
 			}
 		}
+		
 		// n초
 		for (int t = 0; t < T; t++) {
 			// 먼지 확산
