@@ -48,70 +48,43 @@ public class Main_BOJ_17144_dfs {
 	}
 	
 	private static void cleanUpside() {
-		int x = cleaner;
+		// 좌상우하-상우하좌
+		int[] dx = {-1,0,1,0};
+		int[] dy = {0,1,0,-1};
 		
-		// 공청기에 들어오는 먼지가 있다면
-		if(mapRoom[x-1][0]>0) {
-			dust -= mapRoom[x-1][0];
-			mapRoom[x-1][0] = 0;
+		int d = 0,nx = cleaner,ny=0;
+		while(d<4) {
+			nx += dx[d];
+			ny += dy[d];
+			
+			if(nx<=0 || nx >= cleaner || ny<=0 || ny>=C) {
+				d++;
+				continue;
+			}
+			mapRoom[nx][ny] = mapRoom[nx+dx[d]][ny+dy[d]];
 		}
-
-		int end = C-1;
-		// 회전-좌
-		for (int i = x-1; i > 0; i--) {
-			mapRoom[i][0] = mapRoom[i-1][0];
-		}
-		// 회전-상
-		for (int j = 0; j < end; j++) {
-			mapRoom[0][j] = mapRoom[0][j+1];
-		}
-		
-		// 회전-우
-		for (int i = 0; i < x; i++) {
-			mapRoom[i][C-1] = mapRoom[i+1][C-1];
-		}
-		
-		// 회전-하
-		for (int j = C-1; j > 0; j--) {
-			mapRoom[x][j] = mapRoom[x][j-1];
-		}
-		
-		// 공청기에서 나온 공기
-		mapRoom[x][1] = 0;
 	}
 
 	// 시계
 	private static void cleanDownside() {
-		int x = cleaner+1;
+		// (사이드)좌상우하-(방향)상우하좌
+		int[] dx = {-1,0,1,0};
+		int[] dy = {0,1,0,-1};
 		
-		// 공청기에 들어오는 먼지가 있다면
-		if(mapRoom[x+1][0]>0) {
-			dust -= mapRoom[x+1][0];
-			mapRoom[x+1][0] = 0;
+		int d = 0,nx = cleaner,ny=0,nnx,nny;
+		while(d<4) {
+			nx += dx[d];
+			nnx = nx + dx[d];
+			
+			ny += dy[d];
+			nny = ny+dy[d];
+			
+			if(nnx<0 || nnx > cleaner || nny<0 || nny>C-1) {
+				d++;
+				continue;
+			}
+			mapRoom[nx][ny] = mapRoom[nnx][nny];
 		}
-
-		int end = R-1;
-		// 회전-좌
-		for (int i = x+1; i < end; i++) {
-			mapRoom[i][0] = mapRoom[i+1][0];
-		}
-		
-		// 회전-하
-		end = C-1;
-		for (int j = 0; j < end; j++) {
-			mapRoom[R-1][j] = mapRoom[R-1][j+1];
-		}
-		// 회전-우
-		for (int i = R-1; i > x; i--) {
-			mapRoom[i][end] = mapRoom[i-1][end];
-		}
-		// 회전-상
-		for (int j = end; j > 1; j--) {
-			mapRoom[x][j] = mapRoom[x][j-1];
-		}
-		
-		// 공청기에서 나온 공기
-		mapRoom[x][1] = 0;
 	}
 	
 	private static void diffuse() {
