@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+/*
+ * 
+ * 숫자놀이
+ * 
+ */
 public class Main_BOJ_S4_1755 {
 	// 정렬 위해 커스텀 클래스를 만들어 숫자들을 관리한다.
 	static class Number implements Comparable<Number>{	// 정렬위해 Comparable을 이용한다.
