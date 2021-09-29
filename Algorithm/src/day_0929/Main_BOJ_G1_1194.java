@@ -67,8 +67,6 @@ public class Main_BOJ_G1_1194 {
 	
 	
 	private static int bfs(Vertex v) {
-
-//		PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
 		Queue<Vertex> q = new LinkedList<Vertex>();
 		q.offer(v);
 		visited[v.x][v.y] = 1;
