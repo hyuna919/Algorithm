@@ -8,6 +8,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+
+/*
+ *  키정렬
+ *  
+ *  N*2의 배열 만들어서 n입장에서 작은/큰 노드를 0/1열에 비트연산으로 넣고(나머지연산하면서)
+ *  마지막에 이 두 열의 합을  2^N과 비교하면 되지 않을까
+ *  
+ * 
+ */
 public class Solution_swea_D4_5643 {
 	static int T,N,M,res;
 	static ArrayList<Integer>[] big, small;
