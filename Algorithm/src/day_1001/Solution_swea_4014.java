@@ -5,6 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/*
+ * 활주로 건설
+ * 
+ * 완탐
+ * - 높이차가 1 이상이면 건설불가
+ * - 올라가야할 때 : 지금까지 연속된 같은 높이 길이야 경사로길이X보다 작으면 건설불가, 연속된 길이 초기화 1
+ * - 내려가야할 때 : 내려간 후의 연속된 같은 높이 길이야 경사로길이X보다 작으면 건설불가, 연속된 길이 초기화 0
+ * 
+ */
 
 public class Solution_swea_4014 {	
 	static int T, N, X, res;
@@ -33,7 +42,6 @@ public class Solution_swea_4014 {
 				horizon(i);
 				vertical(i);
 			}
-			
 			builder.append("#"+t+" "+res+"\n");
 		}
 		System.out.println(builder);
