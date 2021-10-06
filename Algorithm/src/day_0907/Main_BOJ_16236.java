@@ -74,17 +74,17 @@ public class Main_BOJ_16236 {
 		}
 		
 		while(!smallfishes.isEmpty()) {
-			System.out.println(shark.size);
+//			System.out.println(shark.size);
 			
 			move_bfs();
 			
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					System.out.print(map[i][j] + " ");
-				}
-				System.out.println();
-			}
-			System.out.println();
+//			for (int i = 0; i < N; i++) {
+//				for (int j = 0; j < N; j++) {
+//					System.out.print(map[i][j] + " ");
+//				}
+//				System.out.println();
+//			}
+//			System.out.println();
 		}
 		
 		
