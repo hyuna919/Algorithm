@@ -23,12 +23,11 @@ public class Main_BOJ_15961 {
 			belt[i] = Integer.parseInt(in.readLine());
 		}
 		
-		int max = 0;
+		int max = 0;		
 		
-		int cnt = 0;
-		// 쿠폰추가
+		// 쿠폰을 깔고 간다
 		sushi[coupon] = 1;
-		cnt++;
+		int cnt = 1;
 		
 		// 초기화_첫 k-1개 미리 넣어둠
 		for (int i = 0, end = k-1; i < end; i++) {
@@ -39,12 +38,12 @@ public class Main_BOJ_15961 {
 		// 슬라이딩 윈도우
 		for (int i = k-1, end=N+k-1; i < end; i++) {
 			// 뒤에꺼 하나 추가
-			if(i>=N) {
-				if(sushi[belt[i-N]]==0) cnt++;
-				sushi[belt[i-N]]++;
-			}else {
+			if(i<N) {
 				if(sushi[belt[i]]==0) cnt++;
 				sushi[belt[i]]++;
+			}else{
+				if(sushi[belt[i-N]]==0) cnt++;
+				sushi[belt[i-N]]++;
 			}
 			
 			// 최댓값 갱신
@@ -53,9 +52,7 @@ public class Main_BOJ_15961 {
 			// 첫 접시 제거
 			sushi[belt[i-k+1]]--;
 			if(sushi[belt[i-k+1]]==0) cnt--;
-
 		}
-		
 		System.out.println(max);
 	}
 
