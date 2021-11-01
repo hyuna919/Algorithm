@@ -13,32 +13,34 @@ public class Subset {
 		input = "abcde".split("");
 		subset = new String[]{"-","-","-","-","-"};
 		
+		
+		
+		
+		
+		
 		for (int i = 0, end=1<<n; i < end; i++) {
 			for (int j = 0; j < n; j++) {
-				if((i&1<<j)!=0) {
-					System.out.print(input[j]);		
-				}
+				if((i&1<<j)!=0) System.out.print(input[j]);
 			}
 			System.out.println();
-			Arrays.fill(subset, "-");
 		}
-		
+	
 		
 	}
 
-	private static void print(int[] subset) {
-		int k = 0;
-		System.out.println("[");
-		for (int s : subset) {
-			if(s!=0) {
-				System.out.println(input[k]+" ");
-			}
-			k++;
-		}
-		System.out.println("]");
-		
-		
-	}
+//	private static void print(int[] subset) {
+//		int k = 0;
+//		System.out.println("[");
+//		for (int s : subset) {
+//			if(s!=0) {
+//				System.out.println(input[k]+" ");
+//			}
+//			k++;
+//		}
+//		System.out.println("]");
+//		
+//		
+//	}
 	
 	
 
