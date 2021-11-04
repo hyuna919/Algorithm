@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+// 나는 친구가 적다
+// KMP 
+
 public class Main_BOJ_16171 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -13,6 +16,7 @@ public class Main_BOJ_16171 {
 		char[] input = in.readLine().toCharArray();
 		char[] pattern = in.readLine().toCharArray();
 
+		
 		// 실패함수
 		int pLen = pattern.length;
 		int[] fail = new int[pLen];
