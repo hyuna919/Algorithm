@@ -8,6 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
+// 후보 추천하기
+// 좀 더 깔끔한 방법이 없을까??
+// 설계 안하고 조건 나열하는 방식으로 바로 들어가니까 좀 불만족스럽다
+
 public class Main_BOJ_S2_1713 {
 	static int N, M;
 	public static void main(String[] args) throws NumberFormatException, IOException {
