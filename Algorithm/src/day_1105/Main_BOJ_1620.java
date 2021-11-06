@@ -30,7 +30,6 @@ public class Main_BOJ_1620 {
 			int res = this.name.compareTo(o.name);
 			return res;
 		}
-		
 	}
 	static int N, M;
 	static List<Monster> dicName = new ArrayList<Monster>();
