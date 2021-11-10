@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 // 개쩌는 함수를 찾고 나의 성공시대 시작왰다
 // Collections.binarySearch(List, key); return int
 // 여태까지 이진탐색 손으로 짜던 나 반성해(코테에선 못 쓸수도 있긴하지만...)
+// hashset...같은 값 찾기 O(1)...contains
 
 public class Main_BOJ_S4_1764 {
 	static int N, M;
