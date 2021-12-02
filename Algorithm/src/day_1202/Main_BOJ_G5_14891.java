@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 // 톱니바퀴
-// 구조는 복잡하지만 확장성을 생각하면 괜찮은것같음
+// 구조는 복잡하지만 확장성을 생각하면 괜찮은것같음 
 
 public class Main_BOJ_G5_14891 {
 	
