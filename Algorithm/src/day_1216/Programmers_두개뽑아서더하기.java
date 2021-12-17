@@ -1,4 +1,4 @@
-package day_1217;
+package day_1216;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -37,6 +37,5 @@ public class Programmers_두개뽑아서더하기{
 		Arrays.sort(res);
 		
 		return res;
-		
     }
 }
