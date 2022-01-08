@@ -1,0 +1,10 @@
+/bin/
+
+# Eclipse Core
+.project
+
+.classpath
+
+# working file
+Solution.java
+test.java
