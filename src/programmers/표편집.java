@@ -7,6 +7,7 @@ import java.util.*;
 // ArrayList의 추가시 시간복잡도가 마음에 걸리긴 했는데 역시 이것 때문에 효율성에서 걸렸다.
 // 자바를 오랜만에 하니 LinkedList의 존재를 완전히 잊고 있었다. 다시 시도해봐야겠다.
 
+// 일요일에 꼭 푼다...
 public class 표편집 {
 
 	public static void main(String[] args) {
