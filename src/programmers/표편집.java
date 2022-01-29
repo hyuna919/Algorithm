@@ -6,6 +6,7 @@ import java.util.*;
 // 표 목록을 boolean[]으로 할 지, ArrayList<Integer>로 할 지 고민했는데 많은 행이 삭제된 상황에서 여러칸을 이동하는 문제 때문에 ArrayList<Integer>를 선택.
 // ArrayList의 추가시 시간복잡도가 마음에 걸리긴 했는데 역시 이것 때문에 효율성에서 걸렸다.
 // 자바를 오랜만에 하니 LinkedList의 존재를 완전히 잊고 있었다. 다시 시도해봐야겠다.
+// 오케이...java의 linkedList는 이중 연결 리스트인데 노드 단위로 움직일 방법이 없구나...? 이럴거면 대체 왜...
 
 // 일요일에 꼭 푼다...
 public class 표편집 {
