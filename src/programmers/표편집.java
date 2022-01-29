@@ -20,7 +20,7 @@ public class 표편집 {
 	
 
     public static String solution(int n, int k, String[] cmd) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        LinkedList<Integer> list = new LinkedList<Integer>();
         Stack<int[]> removed = new Stack<>();  // 0: 위치 1: 행번호
         
         // list에 행 밀어넣기
