@@ -20,22 +20,13 @@ public class 표편집 {
 	}
 	
 
-    public static String solution(int n, int k, String[] cmd) {
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        Stack<int[]> removed = new Stack<>();  // 0: 위치 1: 행번호
-        
-        // list에 행 밀어넣기
-        for(int i=0; i<n; i++){
-            list.add(i);
-        }
-        
-        // k그대로 써도 되겠지만 의미 문제로 pointer로 사용
+    public static String solution(int n, int k, String[] cmd) {Stack<Integer> removed = new Stack<>();  // 0: 위치 1: 행번호
         int pointer = k;
         
         // 명령어 처리
         int length = cmd.length;
-        int distance = 0, value;
-        int[] tmp = new int[2];
+        int distance = 0;
+        int value, tmp;
         char command;
         StringTokenizer token;
         for(int t=0; t<length; t++){
@@ -44,43 +35,36 @@ public class 표편집 {
             switch(command){
                 case 'U':
                     distance = Integer.parseInt(token.nextToken());
-                    pointer -= distance;    // 표 범위를 벗어나는 입력은 주어지지 않음
+                    pointer -= distance;
                     break;
                 case 'D':
                     distance = Integer.parseInt(token.nextToken());
                     pointer += distance;
                     break;
                 case 'C':
-                    // 삭제하고 아래행 가르킨다->arraylist라서 안움직여도 된다
-                    removed.push(new int[]{pointer, list.get(pointer)});
-                    list.remove(pointer);
+                    removed.push(pointer);
+                    n--;
                     // 가장 마지막 행 삭제했다면 현재 마지막행을 가르킨다.
-                    if(pointer>=list.size()) pointer = list.size()-1;
+                    if(pointer>=n) pointer--;
                     break;
                 case 'Z':
-                    value = list.get(pointer);
                     tmp = removed.pop();
-                    list.add(tmp[0], tmp[1]);
                     // 포인터 앞쪽(위)에 삽입되어서 한칸씩 밀렸으면 포인터를 한칸 아래로
-                    if(value != list.get(pointer)) pointer++;
+                    if(tmp <= pointer) pointer++;
+                    n++;
                     break;
             }
-            // System.out.println(list.toString() + " " + pointer);
         }
         
         // 결과를 문자열로
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         int now = 0;
-        length = list.size();
         for(int i=0; i<n; i++){
-            if(now<length && list.get(now)==i){
-                result.append("O");
-                now++;
-            }else{
-                result.append("X");
-            }
+            result.append("O");
         }
-        
+        while(!removed.isEmpty()){
+            result.insert(removed.pop().intValue(), "X");
+        }
         
         return result.toString();
     }
