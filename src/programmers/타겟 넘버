@@ -26,4 +26,13 @@ class Solution {
         dfs(sum-list[level], level+1);
         dfs(sum+list[level], level+1);
     }
+    
+    // 파이썬 st
+    public int dfs(int sum, int level){
+        if(level == length){
+            if(sum==t) return 1;
+            return 0;
+        }
+        return dfs(sum-list[level], level+1) + dfs(sum+list[level], level+1);
+    }
 }
