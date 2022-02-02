@@ -1,0 +1,29 @@
+/*
+* https://programmers.co.kr/learn/courses/30/lessons/43165
+* 영남쓰 추천문제
+*/
+
+import java.util.*;
+
+class Solution {
+    static int cnt=0, t, length;
+    static int[] list;
+    public int solution(int[] numbers, int target) {
+        t = target;
+        length = numbers.length;
+        list = numbers;
+        dfs(0, 0);
+        
+        return cnt;
+    }
+    
+    public void dfs(int sum, int level){
+        if(level == length){
+            if(sum==t)cnt++;
+            return;
+        }
+        
+        dfs(sum-list[level], level+1);
+        dfs(sum+list[level], level+1);
+    }
+}
