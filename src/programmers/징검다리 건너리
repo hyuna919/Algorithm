@@ -1,0 +1,32 @@
+## 그리디하게 짰다
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] stones, int k) {
+        int cnt = 0;
+        int dist = 0;
+        int n = stones.length;
+        boolean flag = false;
+        while(true){
+            flag = false;
+            dist = 0;
+            for(int i=0; i<n ; i++){
+                if(dist==k) {
+                    flag = true;
+                    break;
+                }
+                if(stones[i] == 0) {
+                    dist++;
+                }else{
+                    dist = 0;
+                    stones[i]-=1;
+                }
+            }
+            if(flag) break;
+            cnt++;
+        }
+        
+        return cnt;
+    }
+}
