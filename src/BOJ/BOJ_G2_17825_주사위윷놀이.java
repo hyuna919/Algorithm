@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
 /*
 * 정현님 추천문제
 * 오랜만에 시뮬레이션 풀려니 눈물이 난다
 * 머리가 딱딱
 * 1차 풀이 : 일단 돌아는 간다 -> 답 하나도 안맞음ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+* 2차 풀이 : 3번 테케가 211이 나온다(정답214) -> 이런 문제는 디버깅을 어떻게해야할지 조차 감이 안온다;;;
 */
+
 
 public class BOJ_G2_17825_주사위윷놀이 {
 	/* 말 */
@@ -22,7 +23,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 		public Player() {
 			super();
 			this.map = 0;
-			this.position = 0;
+			this.position = -1;
 			this.arrival = false;
 		}
 
@@ -87,22 +88,36 @@ public class BOJ_G2_17825_주사위윷놀이 {
 	private static void dfs(int now, int cnt) {
 		if(now>=10) {
 			max = (max<cnt)?cnt:max;
+//			System.out.println();
+//			if(max>200) {
+//				System.out.println();
+//			}
 			return;
 		}
 		
 		Player player;
 		int res;
+		int map, position;
+		boolean arrival;
 		for (int i = 0; i < 4; i++) {
 			player = list.get(i);
 			
 			// 도착한 말이면 제외
 			if(player.arrival) continue;
 			
-			// 도착 위치에 다른 말이 있는지확인 + 이동
+			
 //			System.out.println(player.toString());
+			map = player.map;
+			position = player.position;
+			arrival = player.arrival;
+			
+			// 도착 위치에 다른 말이 있는지확인 + 이동
 			player.position += movement[now];
-			if(!changeMap(player)) {
-				player.position -= movement[now];
+			if(!changeMap(player, i)) {
+				// 원복
+				player.map = map;
+				player.position = position;
+				player.arrival = arrival;
 				continue;
 			}
 			
@@ -111,18 +126,19 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(!player.arrival) {
 				switch (player.map) {
 				case 0:
-					res += map0.get(player.position).score;
+					if(player.position>=map0.size()) res += 0; // 도착이면 추가점수 0
+					else res += map0.get(player.position).score;
 					break;
 				case 1:
-					if(player.position == -1) res += map0.get(5).score;
+					if(player.position == -1) res += map0.get(5-1).score;
 					else res += map1.get(player.position).score;
 					break;
 				case 2:
-					if(player.position == -1) res += map0.get(10).score;
+					if(player.position == -1) res += map0.get(10-1).score;
 					else res += map2.get(player.position).score;
 					break;
 				case 3:
-					if(player.position == -1) res += map0.get(15).score;
+					if(player.position == -1) res += map0.get(15-1).score;
 					else res += map3.get(player.position).score;
 					break;
 				case 4:
@@ -131,47 +147,53 @@ public class BOJ_G2_17825_주사위윷놀이 {
 				}
 			}
 			
-			
+//			System.out.println(i+" "+now +" "+ (res-cnt) +" "+ cnt);
 			dfs(now+1, res);
+			
+			// 원복
+			player.map = map;
+			
+			player.position = position;
+			player.arrival = arrival;
 		}
 		
 	}
 
 	/* 이동 이후 */
-	static boolean changeMap(Player player) {
+	static boolean changeMap(Player player, int idx) {
 		/* map0이면*/
 		if(player.map == 0) {	
 			// 5단위 => true
-			if(player.position %5 ==0) {
+			if(player.position<map0.size() && (player.position+1) %5 ==0) {
 				switch (player.position) {
-				case 5:
+				case 5-1:
 					player.map = 1;
 					player.position = -1;
 					break;
-				case 10:
+				case 10-1:
 					player.map = 2;
 					player.position = -1;
 					break;
-				case 15:
+				case 15-1:
 					player.map = 3;
 					player.position = -1;
 					break;
-				case 20:
+				case 20-1:
 					player.map = 0;
 					player.position = 19;
 					break;
 				default:
 					break;
 				}
-				return true;
+				return isFull(player, idx);
 			}else {
-				return isArrive(player);
+				return isArrive(player, idx);
 			}
 		} else if(player.map == 1) {
 			if(player.position >= map1.size()) {
 				player.map = 4;
 				player.position -= map1.size();
-				if(!isArrive(player)) {
+				if(!isArrive(player, idx)) {
 					player.map = 1;
 					player.position += map1.size();
 					return false;
@@ -181,7 +203,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(player.position >= map2.size()) {
 				player.map = 4;
 				player.position -= map2.size();
-				if(!isArrive(player)) {
+				if(!isArrive(player, idx)) {
 					player.map = 2;
 					player.position += map2.size();
 					return false;
@@ -191,7 +213,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(player.position >= map3.size()) {
 				player.map = 4;
 				player.position -= map3.size();
-				if(!isArrive(player)) {
+				if(!isArrive(player, idx)) {
 					player.map = 3;
 					player.position += map3.size();
 					return false;
@@ -201,7 +223,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(player.position >= map4.size()) {
 				player.map = 0;
 				player.position = player.position - map4.size() + 19;
-				if(!isArrive(player)) {
+				if(!isArrive(player, idx)) {
 					player.map = 4;
 					player.position = player.position + map4.size() + 19;
 					return false;
@@ -211,12 +233,22 @@ public class BOJ_G2_17825_주사위윷놀이 {
 		return true;
 	}
 
-	private static boolean isArrive(Player player) {
+	private static boolean isFull(Player player, int idx) {
+		Player now;
+		for (int i = 0; i < 4; i++) {
+			if(i==idx) continue;
+			now = list.get(i);
+			if(now.position == player.position && now.map == player.map) return false;
+		}
+		return true;
+	}
+
+	private static boolean isArrive(Player player, int idx) {
 		if(player.map == 0) {
 			if(player.position >= map0.size()) {
 				player.arrival = true;
 				return true;
-			}else if(map0.get(map0.size()-1).isFull){
+			}else if(!isFull(player, idx)){
 				return false;
 			}
 			
@@ -224,7 +256,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(player.position >= map4.size()) {
 				player.arrival = true;
 				return true;
-			}else if(map4.get(map4.size()-1).isFull){
+			}else if(!isFull(player, idx)){
 				return false;
 			}
 		}
