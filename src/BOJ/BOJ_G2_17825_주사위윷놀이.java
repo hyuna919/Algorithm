@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 * 머리가 딱딱
 * 1차 풀이 : 일단 돌아는 간다 -> 답 하나도 안맞음ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 * 2차 풀이 : 3번 테케가 211이 나온다(정답214) -> 이런 문제는 디버깅을 어떻게해야할지 조차 감이 안온다;;;
+* 3차 풀이 : 40을 인지못하는 경우를 해결함 ->기본 테케 통과인데 11퍼에서 틀린다..
 */
 
 
@@ -44,7 +45,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 	}
 	
 	/* static */
-	static int max = 0;
+	static int max = 0, ccnt;
 	static List<Player> list;
 	static List<Position> map0, map1, map2, map3, map4;
 	static int[] movement;
@@ -126,8 +127,7 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			if(!player.arrival) {
 				switch (player.map) {
 				case 0:
-					if(player.position>=map0.size()) res += 0; // 도착이면 추가점수 0
-					else res += map0.get(player.position).score;
+					res += map0.get(player.position).score;
 					break;
 				case 1:
 					if(player.position == -1) res += map0.get(5-1).score;
@@ -253,7 +253,10 @@ public class BOJ_G2_17825_주사위윷놀이 {
 			}
 			
 		} else if(player.map == 4) {
-			if(player.position >= map4.size()) {
+			if(player.position == map4.size()) {
+				player.map=0;
+				player.position = 19;
+			}else if(player.position > map4.size()) {
 				player.arrival = true;
 				return true;
 			}else if(!isFull(player, idx)){
