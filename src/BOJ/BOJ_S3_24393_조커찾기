@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+/*
+ * BOJ_S3_24393_조커찾기
+ * 정말 초심으로 돌아간 것 같다. 이렇게 코드에 구멍이 많을 수가 없다.
+ * 설계에 구멍을 줄였다 생각했는데 세상에, 입력처리를 오른쪽 덱에서만 하고 있었다 세상에세상에
+ * 이 에러 잡는데 2시간은 썼다...하...진짜...
+ */
+public class Main {
+	static int joker = 1;
+	static int deck, left, right;
+	static int N;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer token = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(token.nextToken());
+		
+		int val;
+		while(N-->0) {
+			token = new StringTokenizer(br.readLine());
+			deck = 0;
+			left = 1;
+			right = 14;
+			while (token.hasMoreTokens()) {
+				val = Integer.parseInt(token.nextToken());
+
+				if(joker>=right) {
+					// 우측먼저
+					// 좌측덱에서 이번에 추가 대상중 조커가 포함인지
+					if(right<=joker && joker<right+val) {
+						deck += joker-right+1;
+						joker = deck;
+						break;
+					}else {
+						deck += val;
+						right += val;
+					}
+				}else {
+					deck += val;
+					right += val;
+				}
+				
+
+				// 좌측 추가차례=> 더 섞는지 확인
+				if(!token.hasMoreTokens()) break;
+				val = Integer.parseInt(token.nextToken());
+				// 좌측덱 추가
+				if(joker<right) {
+					// 좌측덱에서 이번에 추가 대상중 조커가 포함인지
+					if(left<=joker && joker<left+val) {
+						deck += joker-left+1;
+						joker = deck;
+						break;
+					}else {
+						deck += val;
+						left += val;
+					}
+				}else {
+					deck += val;
+					left += val;
+				}
+				
+			}
+		}
+		
+		System.out.println(joker);
+	}
+	
+}
