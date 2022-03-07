@@ -1,0 +1,46 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+/*
+* 더 깔끔하게 풀 수 있는 방법이 없을까?
+* 보수를 만드는 자바 자체 연산자 같은거 있을 텐데, 혹은 Math패키지도!
+*/
+
+public class Main {
+	static int N,M;
+	static boolean[][] map;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int input = Integer.parseInt(br.readLine());
+		int cnt = 0;
+		
+		int[] A = new int[32];
+		int[] B = new int[32];
+		
+		
+		int out = 0;
+		for (int i = 0; i < 32; i++) {
+			if((input&1<<i)!=0) {
+				A[i] = 1;
+			}else {
+				out |= 1<<i;
+			}
+		}
+		
+		out += 1;
+
+		for (int i = 0; i < 32; i++) {
+			if((out&1<<i)!=0) {
+				B[i] = 1;
+			}
+		}
+
+		for (int i = 0; i < 32; i++) {
+			if (A[i] != B[i]) cnt++;
+		}
+		
+		System.out.println(cnt);
+	}
+}
