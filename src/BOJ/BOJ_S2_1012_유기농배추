@@ -1,0 +1,91 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class BOJ_S2_1012_유기농배추 {
+	static class Position{
+		int x,y;
+
+		public Position(int x, int y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+	}
+	static int T, M,N,K, cnt;
+	static boolean[][] map, visited;
+	static Queue<Position> q;
+	static List<Position> list;
+	static int[] dx = {-1,1,0,0};
+	static int[] dy = {0,0,-1,1};
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer token;
+		T = Integer.parseInt(br.readLine());
+		
+		int X, Y;
+		while (T-->0) {
+			// 입력
+			token = new StringTokenizer(br.readLine());
+			M = Integer.parseInt(token.nextToken());
+			N = Integer.parseInt(token.nextToken());
+			K = Integer.parseInt(token.nextToken());
+			
+			// 초기화
+			map = new boolean[N][M];
+			visited = new boolean[N][M];
+			list = new ArrayList<Position>();
+			cnt = 0;
+			
+			// 맵 입력
+			for (int i = 0; i < K; i++) {
+				token = new StringTokenizer(br.readLine());
+				Y = Integer.parseInt(token.nextToken());
+				X = Integer.parseInt(token.nextToken());
+				map[X][Y] = true;
+				list.add(new Position(X, Y));
+			}
+			
+			Position now;
+			for (int i = 0; i < K; i++) {
+				now = list.get(i);
+				if(!visited[now.x][now.y]) {
+					bfs(now.x, now.y);
+					cnt++;
+				}
+			}
+			
+			
+			System.out.println(cnt);
+		}
+	}
+	
+	private static void bfs(int x, int y) {
+		q = new LinkedList<Position>();
+		Position now = new Position(x, y);
+		q.offer(now);
+		
+		int nx,ny;
+		while (!q.isEmpty()) {
+			now = q.poll();
+			x = now.x;
+			y = now.y;
+			visited[x][y] = true;
+			for (int i = 0; i < 4; i++) {
+				nx = x+dx[i];
+				ny = y+dy[i];
+				
+				if(nx<0 || nx>=N || ny<0 || ny>=M) continue;
+				if(!map[nx][ny] || visited[nx][ny]) continue;
+				
+				visited[nx][ny] = true;
+				q.offer(new Position(nx, ny));
+			}
+		}
+	}
+}
