@@ -1,0 +1,47 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BOJ_S4_9414_프로그래밍대회전용부지 {
+	static int T, size;
+	static long min;
+	static List<Integer> list;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		T = Integer.parseInt(br.readLine());
+		
+		int tmp;
+		while (T-->0) {
+			min = 5_000_001;
+			list = new ArrayList<Integer>();
+			while (true) {
+				tmp = Integer.parseInt(br.readLine());
+				if(tmp==0) break;
+				else list.add(tmp);
+			}
+			
+			size = list.size();
+			perm(0,0,0);
+			
+			if(min<5_000_001) System.out.println(min);
+			else System.out.println("Too expensive");
+		}
+	}
+	
+	private static void perm(int lv, int flag, int sum) {
+		if(lv==size) {
+			min = (sum<min)?sum:min;
+			return;
+		}
+		
+		int val;
+		for (int i = 0; i < size; i++) {
+			if((flag&1<<i)!=0) continue;
+			val = (int) (2*(Math.pow(list.get(i), lv+1)));
+			if(val<5_000_001) perm(lv+1,flag|1<<i, sum+val);
+		}
+		
+	}
+}
