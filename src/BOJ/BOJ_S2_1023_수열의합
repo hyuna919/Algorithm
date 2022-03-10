@@ -1,0 +1,63 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+/*
+* 특강듣고나서 설계 꼼꼼히해야겠다해서 손코딩한번하니까 진짜 잘풀린다.
+* 근데 문제 허술하게 읽는다는게 확실히 잘 느껴진다.
+* 
+* 그리고 수열의 합 공식 생각이 안나서 그냥 내 식대로 짰는데, 효율을 낮아도 괜찮은 아이디어인듯.
+* 코테에서 내가 모든 수학공식을 알고있을 순 없으니까 이렇게 아이디어짜내는 방식을 연습한 것도 좋은 것 같다.
+*/
+
+public class Main {
+	static int N,L;
+	static List<Integer> list;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer token = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(token.nextToken());
+		L = Integer.parseInt(token.nextToken());
+		
+		list = new ArrayList<Integer>();
+		
+		int start = N/L;
+		int len = L;
+		int sum = 0;
+		for (int i = start, end=start+len; i < end; i++) {
+			sum += i;
+		}
+		
+		while(start>-1) {
+			if(sum>N) {
+				if(len == L) {
+					start--;
+					sum -= L;
+				}else {
+					len--;
+					sum -= start+len;
+				}
+			}else if(sum<N) {
+				if(len++==100) break;
+				start--;
+				sum += start;
+			}else if(sum==N) {
+				break;
+			}
+		}
+		
+		
+		if(start<0 || len>100) System.out.println(-1);
+		else {
+			StringBuilder builder = new StringBuilder();
+			for (int i = start, end=start+len-1; i < end; i++) {
+				builder.append(i+" ");
+			}
+			builder.append(start+len-1);
+			System.out.println(builder.toString());
+		}
+	}
+}
