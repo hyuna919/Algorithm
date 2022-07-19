@@ -1,14 +1,29 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /*
 최소경로문제 - 계속 시뮬이나 dp만 풀다보니 최소경로, 최소신장 문제를 잊어서 풀었다.
 1회차) 다익스트라(PriorityQueue x) : 값 범위 고려 안함 + 나중에 초기화 과정 추가하면서 버스 여부를 확인하는 경로문이 틀리게됨
+2회차) 다익스트라(PriorityQueue o) : map이 아니라 graph이용(start에서 어디로 얼마에 갈 수 있는지 기록)
 
 
  */
 
 public class Main {
+    static class Node implements Comparable<Node>{
+        int end, cost;
+
+        Node(int end, int cost) {
+            this.end = end;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Node o) {
+            return cost - o.cost;
+        }
+    }
     static int N, M, INF = 100_000;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,23 +31,19 @@ public class Main {
         M = Integer.parseInt(br.readLine());
         StringTokenizer token;
 
-        // 도시간 비용
-        int[][] map = new int[N][N];
-        // 초기화 -> 버스 비용이 0일수도 있어서 따로해줘야함
+        // 도시간 비용을 그래프로 나타냄
+        ArrayList<ArrayList<Node>> graph = new ArrayList<ArrayList<Node>>();
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                map[i][j] = INF;
-            }
+            graph.add(new ArrayList<Node>());
         }
-
         int start, end, cost;
         for (int i = 0; i < M; i++) {
             token = new StringTokenizer(br.readLine());
             start = Integer.parseInt(token.nextToken());
             end = Integer.parseInt(token.nextToken());
             cost = Integer.parseInt(token.nextToken());
-            // 경로 같은 버스
-            map[start][end] = (map[start][end]<cost)?map[start][end]:cost;
+            // start에서 어디로 얼마에 갈 수 있는지 기록
+            graph.get(start).add(new Node(end, cost));
         }
 
         // 목표로 하는 출도착점
@@ -41,35 +52,32 @@ public class Main {
         end = Integer.parseInt(token.nextToken());
 
         boolean[] visited = new boolean[N];
-        long[] distance = new long[N];
+        int[] distance = new int[N];
         
         // 초기화
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[start] = 0;
-        
-        // 도시만큼 반복해서 최소비용찾기
-        long min = 0;
-        int now = 0;
-        for (int i = 1; i < N; i++) {
-            min = Integer.MAX_VALUE;
 
-            // 방문x에서 최소비용 찾기
-            for (int j = 1; j < N; j++) {
-                if(!visited[j] && min > distance[j]) {  // 첫 반복에서 방문x+min보다 적은 비용은 distance[start]가 유일하다.
-                    min = distance[j];
-                    now = j;
+        PriorityQueue<Node> q = new PriorityQueue();
+        q.offer(new Node(start, 0));
+
+        while (!q.isEmpty()) {
+            Node now = q.poll();
+
+            // 시작점에서 현재도시로의 비용보다 > 시작점에서 다음 도시로의 비용이 적으면 continue
+            if(distance[now.end] < now.cost) continue;
+
+            // 선택된 노드(pq니까 최저비용 노드)의 인접 노드 확인
+            for (int i = 0; i < graph.get(now.end).size(); i++) {
+                Node next = graph.get(now.end).get(i);
+                if(distance[next.end] > now.cost+next.cost) {
+                    distance[next.end] = now.cost+next.cost;
+                    q.offer(new Node(next.end, distance[next.end]));
                 }
             }
-
-            visited[now] = true;
-
-            // 기존비용vs경유비용
-            for (int j = 1; j < N; j++) {
-                if(!visited[j] && map[now][j]!=INF && distance[j] > min+map[now][j]) {
-                    distance[j] = min+map[now][j];
-                }
-            }
+            
         }
+
         System.out.println(distance[end]);
     }
 }
