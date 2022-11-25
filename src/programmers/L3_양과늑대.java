@@ -4,23 +4,15 @@ import java.util.*;
 양과 늑대
 
 구현문제 포인트) 방문처리 어떻게 할지 고려할 것
+문제점) 12,15번 틀림 why? -> 방문처리 논리가 안맞았음
 
-문제점) 2문제 틀림 why?
+풀이) 전체 노드가 최악 17이라서 방문처리를 하지 않음 -> 이동가능한 노드 목록을 만들어서 이동시킴 + 방문한 노드는 제거 -> 중복 방문 방지
  */
 
 class Solution {
-    static class State{
-        int sheep, wolf;
-
-        public State(int sheep, int wolf) {
-            this.sheep = sheep;
-            this.wolf = wolf;
-        }
-    }
     static int N, M, max = 0, maxSheep;
     static int[] parents, info;
     static int[][] children;
-    static ArrayList<State>[] visited;
     public int solution(int[] info, int[][] edges) {
         this.info = info;
         N = info.length;
@@ -46,54 +38,34 @@ class Solution {
         }
 
         // 양 몰이
-        visited = new ArrayList[N];
-        for (int i = 0; i < N; i++) {
-            visited[i] = new ArrayList<>();
-        }
-        dfs(0,1,0, -1);
+        HashSet<Integer> list = new HashSet<>();
+        list.add(0);    // 무조건 0번 노드에서 시작
+        dfs(0,0,0, list);
 
         return max;
     }
 
-    private void dfs(int node, int sheep, int wolf, int before) {
+    private void dfs(int node, int sheep, int wolf, Set<Integer> list) {
+        list.remove(node); // 이동 목록에서 자신 제거
 
-        // 같은 상태로 왔던 곳인가
-        ArrayList<State> records = visited[node];
-        for(State r:records) {
-            if(r.sheep==sheep && r.wolf==wolf) return;
-        }
-        // 방문 기록
-        State now = new State(sheep,wolf);
-        visited[node].add(now);
+        // 현재위치 동물 카운트
+        if(info[node]==0) sheep++;
+        else wolf++;
+        // 갱신
         max = Math.max(max, sheep);
 
         // 늑대가 같거나 더 많아지는 경우 -> stop
         if(sheep <= wolf) return;
-
         // 전체 양을 모두 획득
         if(max == maxSheep) return;
 
-        // 자식으로 이동
-        for (int child:children[node]) {
-            // 자식이 있다면 && 바로 직전에 온 곳이 아니면
-            if (child != 0 && child != before) {
-                if (info[child] == 0) { // 양이 있다
-                    info[child] = -1;
-                    dfs(child, sheep + 1, wolf, node);
-                    info[child] = 0;
-                } else if (info[child] == 1) {  // 늑대가 있다
-                    info[child] = -1;
-                    dfs(child, sheep, wolf + 1, node);
-                    info[child] = 1;
-                } else {    // 빈자리다
-                    dfs(child, sheep, wolf, node);
-                }
-            }
+        // 이동 목록에 자식 추가
+        for (int child:children[node]) if(child!=0) list.add(child);
+        // 다음노드로 이동
+        for (int child:list) {
+            Set<Integer> newList = new HashSet<>();
+            for (int c:list) newList.add(c);
+            dfs(child, sheep, wolf, newList);
         }
-
-        // 부모로 이동(현재위치는 이전 dfs에서 먹고왔음)
-        if(node!=0) dfs(parents[node], sheep, wolf, node);
     }
-
-
 }
