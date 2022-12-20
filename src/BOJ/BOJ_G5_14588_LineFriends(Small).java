@@ -47,8 +47,7 @@ public class Main {
                 Node next = nodeList[j];
 
                 if((next.r < now.l) || (now.r < next.l)) continue;  // 범위가 겹치지 않는 경우 제외
-                map[i][j] = 1;
-                map[j][i] = 1;
+                map[i][j] = map[j][i] = 1;
             }
         }
 
