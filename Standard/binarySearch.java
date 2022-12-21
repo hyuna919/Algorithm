@@ -9,7 +9,7 @@ private static int binarySearch(int input) {
         value = list.get(mid);
 
         if(value > input) right = mid - 1;
-        else left = mid++;
+        else left = mid + 1;
     }
 
     return mid;
