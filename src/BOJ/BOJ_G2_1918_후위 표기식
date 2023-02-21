@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+
+/*
+BOJ_G2_1918_후위 표기식
+ */
+public class Main {
+    static int length;
+    static ArrayList<String> list;
+    public static void main(String[] args) throws IOException {
+        // 0. 입력
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        char[] input = br.readLine().toCharArray();
+        length = input.length;
+        list = new ArrayList<>();
+        for(char val:input) list.add(Character.toString(val));
+
+        // 1. */에 괄호
+        for (int i = 0; i < length; i++) {
+            if("*/".contains(list.get(i))) {
+                int start = tie(i, -1, 0);
+                int end = tie(i, +1, 0);
+                list.add(end+1, ")");
+                list.add(start, "(");
+                i++;
+                length += 2;
+            }
+        }
+
+        // 2. +-에 괄호
+        for (int i = 0; i < length; i++) {
+            if("+-".contains(list.get(i))) {
+                int start = tie(i, -1, 0);
+                int end = tie(i, +1, 0);
+                list.add(end+1, ")");
+                list.add(start, "(");
+                i++;
+                length += 2;
+            }
+        }
+
+        // 3. 후위표기식으로 변경
+        Stack<String> s = new Stack<>();
+        for (String val:list) {
+            // 한덩어리
+            if(")".equals(val)){
+                StringBuilder builder = new StringBuilder();
+                String func = "";
+                while(true){
+                    String pop = s.pop();
+                    if("(".equals(pop)) {
+                        builder.append(func);
+                        s.push(builder.toString());
+                        break;
+                    }
+                    if("+-*/".contains(pop)) func = pop;
+                    else builder.insert(0,pop);
+                }
+            }else s.push(val);
+        }
+
+
+        // 4. 출력
+        System.out.println(s.pop());
+    }
+
+
+    private static int tie(int i, int dir, int flag) {
+        int res = i+dir;
+        String val = list.get(i+dir);
+        if("()".contains(val)) {
+            if("(".equals(val)) flag++;
+            else flag--;
+        }
+        if(flag==0) return res;
+        else return tie(i+dir, dir, flag);
+    }
+}
